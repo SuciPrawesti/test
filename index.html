@@ -1,146 +1,933 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Magang SMKN 3 Kendal</title>
-        <style>
-            * {
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-                font-family: "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
-                    "Open Sans", "Helvetica Neue", sans-serif;
-            }
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Magang SMKN 3 Kendal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #6C63FF;
+      --blue:#514bc0;
+      --secondary: #5E81F4;
+      --white: #FFFFFF;
+      --light-gray: #F8F9FA;
+      --dark: #2D3748;
+      --text: #4A5568;
+      --card-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.05);
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      --border-radius: 12px;
+      --navbar-height: 70px;
+      --navbar-side-padding: 30px;
+      --navbar-initial-width: 90%;
+      --primary-accent: #a855f7;
+      --secondary-accent: #3b82f6;
+      --space-teal: #00e5ff;
+    }
 
-            body {
-                background-color: #f8f9fa;
-                color: #333;
-                line-height: 1.6;
-                display: flex;
-                flex-direction: column;
-                min-height: 100vh;
-            }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-            .container {
-                max-width: 1200px;
-                margin: 0 auto;
-                padding: 0 20px;
-                flex: 1;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                text-align: center;
-            }
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      line-height: 1.6;
+      position: relative;
+      background: 
+        radial-gradient(
+          circle at center,
+          var(--white) 0%,
+          rgba(255, 255, 255, 0.8) 50%,
+          rgba(240, 244, 255, 0.6) 100%
+        ),
+        linear-gradient(
+          145deg,
+          rgba(108, 99, 255, 0.12) 0%,
+          rgba(94, 129, 244, 0.08) 20%,
+          rgba(255, 255, 255, 0.85) 40%,
+          rgba(255, 209, 102, 0.1) 60%,
+          rgba(255, 142, 142, 0.12) 80%
+        );
+      background-attachment: fixed;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      padding-top: calc(var(--navbar-height) + 20px);
+    }
 
-            header {
-                padding: 40px 0;
-            }
+    h1, h2, h3 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      color: var(--dark);
+      line-height: 1.3;
+    }
 
-            .logo {
-                width: 120px;
-                height: auto;
-                margin-bottom: 20px;
-            }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
 
-            h1 {
-                font-size: 2.5rem;
-                font-weight: 300;
-                margin-bottom: 10px;
-                color: #2c3e50;
-            }
+    /* Navigation */
+    .navbar {
+      position: fixed;
+      top: 20px;
+      left: 0;
+      right: 0;
+      margin: auto;
+      width: var(--navbar-initial-width);
+      max-width: 1200px;
+      height: var(--navbar-height);
+      border: 1px solid var(--primary);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 35px;
+      padding: 0 var(--navbar-side-padding);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      transition: width 0.4s ease, max-width 0.4s ease, top 0.4s ease,
+          padding 0.4s ease, border-radius 0.4s ease, box-shadow 0.4s ease;
+      box-shadow: 0 8px 32px rgba(13, 2, 29, 0.3);
+    }
 
-            p {
-                font-size: 1.1rem;
-                color: #7f8c8d;
-                max-width: 600px;
-                margin-bottom: 40px;
-            }
+    .navbar.scrolled {
+      top: 0;
+      width: 100%;
+      max-width: 100%;
+      border-radius: 0;
+  height: var(--navbar-height);
+  border: 1px solid var(--primary);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+      padding: 0 30px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    }
 
-            .cta-button {
-                display: inline-block;
-                background-color: #3498db;
-                color: white;
-                text-decoration: none;
-                padding: 15px 40px;
-                border-radius: 30px;
-                font-size: 1.1rem;
-                font-weight: 500;
-                transition: all 0.3s ease;
-                box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11),
-                    0 1px 3px rgba(0, 0, 0, 0.08);
-            }
+    .logo-text {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: 1px;
+      font-family: "Poppins", sans-serif;
+      background: var(--primary);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      transition: all 0.3s ease;
+    }
 
-            .cta-button:hover {
-                background-color: #2980b9;
-                transform: translateY(-2px);
-                box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1),
-                    0 3px 6px rgba(0, 0, 0, 0.08);
-            }
+    .nav-links {
+      display: flex;
+      gap: 25px;
+    }
 
-            footer {
-                text-align: center;
-                padding: 20px;
-                color: #95a5a6;
-                font-size: 0.9rem;
-            }
+    .nav-links a {
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      position: relative;
+      transition: all 0.3s ease;
+      padding: 5px 0;
+      font-family: "Poppins", sans-serif;
+    }
 
-            @media (max-width: 768px) {
-                h1 {
-                    font-size: 2rem;
-                }
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      color: (--blue);
+      transition: width 0.4s ease;
+    }
 
-                p {
-                    font-size: 1rem;
-                }
+    .nav-links a:hover::after {
+      width: 100%;
+    }
 
-                .cta-button {
-                    padding: 12px 30px;
-                }
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <header>
-                <!-- You can replace this with your actual logo -->
-                    <path
-                        d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
-                        stroke="#3498db"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                    />
-                    <path
-                        d="M12 8V16"
-                        stroke="#3498db"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                    />
-                    <path
-                        d="M8 12H16"
-                        stroke="#3498db"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                    />
-                </svg>
-                <h1>Magang SMKN 3 Kendal</h1>
-                <p>
-                    Platform untuk mengelola kegiatan magang siswa SMKN 3
-                    Kendal. Login untuk mengakses sistem dan memulai pengalaman
-                    magang Anda.
-                </p>
-                <a
-                    href="https://magang.smkn3kendal.sch.id/login"
-                    class="cta-button"
-                    >Login Sekarang</a
-                >
-            </header>
+    .nav-links a:hover {
+      color: var();
+    }
+
+    .hamburger {
+      display: none;
+      cursor: pointer;
+      font-size: 1.3rem;
+      color: white;
+      transition: transform 0.3s ease;
+      z-index: 1001;
+      padding: 8px;
+      border-radius: 8px;
+    }
+
+    .hamburger:hover {
+      transform: scale(1.1);
+    }
+
+    .mobile-menu-backdrop {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(5px);
+      z-index: 999;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .mobile-menu-backdrop.active {
+      opacity: 1;
+    }
+
+    .hero {
+      padding: 120px 0 80px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 2.8rem;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto 40px;
+      color: var(--text);
+      opacity: 0.9;
+    }
+
+    .hero-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 0.95rem;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: var(--white);
+      box-shadow: 0 8px 20px rgba(108, 99, 255, 0.2);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 25px rgba(108, 99, 255, 0.3);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+
+    .btn-outline:hover {
+      background: rgba(108, 99, 255, 0.05);
+      transform: translateY(-3px);
+    }
+
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-top: 48px;
+      flex-wrap: wrap;
+    }
+
+    .stat-item {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(5px);
+      padding: 20px;
+      border-radius: var(--border-radius);
+      min-width: 160px;
+      box-shadow: var(--card-shadow);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--text);
+      opacity: 0.8;
+    }
+
+    .section {
+      padding: 80px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-title h2 {
+      font-size: 2.2rem;
+      margin-bottom: 16px;
+    }
+
+    .section-title p {
+      color: var(--text);
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: 1.05rem;
+      opacity: 0.9;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: var(--border-radius);
+      padding: 40px 32px;
+      box-shadow: var(--card-shadow);
+      transition: var(--transition);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(5px);
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      font-size: 1.5rem;
+      color: var(--primary);
+    }
+
+    .card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 16px;
+    }
+
+    .card p {
+      color: var(--text);
+      font-size: 1rem;
+      opacity: 0.9;
+      line-height: 1.7;
+    }
+
+    footer {
+      background: var(--dark);
+      color: var(--white);
+      padding: 80px 0 24px;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 48px;
+      margin-bottom: 60px;
+    }
+
+    .footer-column h3 {
+      font-size: 1.2rem;
+      margin-bottom: 24px;
+      position: relative;
+      padding-bottom: 12px;
+    }
+
+    .footer-column h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 3px;
+      background: var(--primary);
+    }
+
+    .footer-about p {
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 20px;
+      line-height: 1.7;
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 12px;
+    }
+
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      transition: var(--transition);
+      font-size: 0.95rem;
+    }
+
+    .footer-links a:hover {
+      color: var(--white);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .social-links a {
+      color: var(--white);
+      background: rgba(255, 255, 255, 0.1);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+
+    .social-links a:hover {
+      background: var(--primary);
+      transform: translateY(-3px);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.85rem;
+    }
+
+    .back-to-top {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 48px;
+      height: 48px;
+      background: var(--primary);
+      color: var(--white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
+      cursor: pointer;
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .back-to-top:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(108, 99, 255, 0.4);
+    }
+
+    /* Responsive Breakpoints */
+    @media (max-width: 992px) {
+      .navbar {
+        width: calc(100% - 40px);
+        padding: 0 25px;
+      }
+
+      .nav-links {
+        gap: 20px;
+      }
+
+      .hero h1 {
+        font-size: 2.4rem;
+      }
+      
+      .section-title h2 {
+        font-size: 2rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        width: calc(100% - 30px);
+        padding: 0 15px;
+        top: 15px;
+        height: 65px;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 250px;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+        padding: 90px 25px 25px;
+        transition: right 0.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+        overflow-y: auto;
+        z-index: 1000;
+        box-shadow: -5px 0 30px rgba(0, 229, 255, 0.15);
+        border-left: 1px solid var(--space-teal);
+        background: transparent;
+      }
+
+      .nav-links::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 250px;
+        height: 100vh;
+        background: linear-gradient(
+            to right,
+            rgba(42, 16, 81, 0.95) 0%,
+            rgba(26, 35, 126, 0.93) 100%
+        );
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        z-index: -1;
+        pointer-events: none;
+      }
+
+      .navbar.scrolled .nav-links {
+        border-top-right-radius: 0;
+      }
+
+      .nav-links.active {
+        right: 0;
+        border-top-right-radius: 30px;
+      }
+
+      .nav-links a {
+        font-size: 1rem;
+        width: 100%;
+        padding: 8px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .nav-links a::after {
+        display: none;
+      }
+
+      .hamburger {
+        display: block;
+      }
+
+      .mobile-menu-backdrop {
+        display: block;
+      }
+      
+      .hero {
+        padding: 140px 0 80px;
+      }
+      
+      .hero h1 {
+        font-size: 2rem;
+      }
+      
+      .hero-buttons {
+        flex-direction: column;
+        gap: 12px;
+      }
+      
+      .btn {
+        width: 100%;
+        max-width: 280px;
+      }
+      
+      .section {
+        padding: 60px 0;
+      }
+      
+      .section-title {
+        margin-bottom: 40px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .navbar {
+        height: 60px;
+      }
+
+      .container {
+        padding: 0 20px;
+      }
+      
+      .hero {
+        padding: 120px 0 60px;
+      }
+      
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+      
+      .section-title h2 {
+        font-size: 1.6rem;
+      }
+      
+      .card {
+        padding: 32px 24px;
+      }
+      
+      .back-to-top {
+        width: 42px;
+        height: 42px;
+        font-size: 1rem;
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in {
+      animation: fadeIn 0.8s ease-out forwards;
+    }
+
+    [data-scroll] {
+      opacity: 0;
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    [data-scroll="fade-in"] {
+      transform: translateY(20px);
+    }
+
+    [data-scroll="fade-left"] {
+      transform: translateX(-20px);
+    }
+
+    [data-scroll="fade-right"] {
+      transform: translateX(20px);
+    }
+
+    [data-scroll="in-view"] {
+      opacity: 1;
+      transform: translate(0);
+    }
+  </style>
+</head>
+<body>
+  <!-- Back to Top Button -->
+  <div class="back-to-top" id="backToTop">
+    <i class="fas fa-arrow-up"></i>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="logo-text">Magang<span>Skanega</span></div>
+    <div class="hamburger" id="hamburger">
+      <i class="fas fa-bars"></i>
+    </div>
+    <div class="nav-links" id="navLinks">
+      <a href="#hero">Beranda</a>
+      <a href="#tentang">Tentang</a>
+      <a href="#angkatan">Angkatan</a>
+      <a href="#kontak">Kontak</a>
+    </div>
+  </nav>
+  <div class="mobile-menu-backdrop" id="mobileMenuBackdrop"></div>
+
+  <div class="container">
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+      <div class="hero-content fade-in" data-scroll="fade-in">
+        <h1>Program Magang SMKN 3 Kendal</h1>
+        <p>Mempersiapkan siswa untuk dunia profesional melalui pengalaman magang berkualitas di perusahaan terkemuka.</p>
+        <div class="hero-buttons">
+          <a href="#angkatan" class="btn btn-primary">
+            <i class="fas fa-search"></i> Lihat Angkatan
+          </a>
+          <a href="https://magang.smkn3kendal.sch.id/login" class="btn btn-outline">
+            <i class="fas fa-sign-in-alt"></i> Login Siswa
+          </a>
         </div>
+        <div class="hero-stats">
+          <div class="stat-item fade-in delay-1" data-scroll="fade-in">
+            <div class="stat-number">500+</div>
+            <div class="stat-label">Siswa Magang</div>
+          </div>
+          <div class="stat-item fade-in delay-2" data-scroll="fade-in">
+            <div class="stat-number">50+</div>
+            <div class="stat-label">Perusahaan Mitra</div>
+          </div>
+          <div class="stat-item fade-in delay-3" data-scroll="fade-in">
+            <div class="stat-number">95%</div>
+            <div class="stat-label">Kepuasan Siswa</div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        <footer>&copy; 2025 SMKN 3 Kendal. All rights reserved.</footer>
-    </body>
+    <!-- Angkatan Section -->
+    <section class="section" id="angkatan">
+      <div class="section-title fade-in" data-scroll="fade-in">
+        <h2>Pilih Angkatan Magang</h2>
+        <p>Silakan pilih angkatan Anda untuk mengakses halaman login magang</p>
+      </div>
+      <div class="card-grid">
+        <div class="card fade-in delay-1" data-scroll="fade-left">
+          <div class="card-icon" style="font-size: 1.8rem; font-weight: 700;">2025</div>
+          <h3>Angkatan 2025</h3>
+          <p>Untuk siswa yang akan magang tahun 2024/2025</p>
+          <a href="https://magang.smkn3kendal.sch.id/login" class="btn btn-primary" style="margin-top: 16px;">
+            <i class="fas fa-arrow-right"></i> Masuk
+          </a>
+        </div>
+        <div class="card fade-in delay-2" data-scroll="fade-in">
+          <div class="card-icon" style="font-size: 1.8rem; font-weight: 700;">2024</div>
+          <h3>Angkatan 2024</h3>
+          <p>Untuk siswa yang magang tahun 2023/2024</p>
+          <a href="https://magang.smkn3kendal.sch.id/login" class="btn btn-primary" style="margin-top: 16px;">
+            <i class="fas fa-arrow-right"></i> Masuk
+          </a>
+        </div>
+        <div class="card fade-in delay-3" data-scroll="fade-right">
+          <div class="card-icon" style="font-size: 1.8rem; font-weight: 700;">2023</div>
+          <h3>Angkatan 2023</h3>
+          <p>Untuk siswa yang magang tahun 2022/2023</p>
+          <a href="https://magang.smkn3kendal.sch.id/login" class="btn btn-primary" style="margin-top: 16px;">
+            <i class="fas fa-arrow-right"></i> Masuk
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Info Section -->
+    <section class="section" id="tentang">
+      <div class="section-title fade-in" data-scroll="fade-in">
+        <h2>Keunggulan Program Magang</h2>
+        <p>Program magang yang dirancang untuk mempersiapkan siswa memasuki dunia kerja</p>
+      </div>
+      <div class="card-grid">
+        <div class="card fade-in delay-1" data-scroll="fade-left">
+          <div class="card-icon">
+            <i class="fas fa-briefcase"></i>
+          </div>
+          <h3>Pengalaman Nyata</h3>
+          <p>Siswa mendapatkan pengalaman kerja langsung di perusahaan mitra yang relevan dengan kompetensi keahliannya.</p>
+        </div>
+        <div class="card fade-in delay-2" data-scroll="fade-in">
+          <div class="card-icon">
+            <i class="fas fa-chalkboard-teacher"></i>
+          </div>
+          <h3>Pembimbing Profesional</h3>
+          <p>Didampingi oleh pembimbing dari sekolah dan industri yang berpengalaman di bidangnya.</p>
+        </div>
+        <div class="card fade-in delay-3" data-scroll="fade-right">
+          <div class="card-icon">
+            <i class="fas fa-certificate"></i>
+          </div>
+          <h3>Sertifikasi</h3>
+          <p>Mendapatkan sertifikat magang yang dapat menjadi nilai tambah untuk melanjutkan studi atau bekerja.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer id="kontak">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column fade-in" data-scroll="fade-left">
+          <h3>Magang SMKN 3 Kendal</h3>
+          <div class="footer-about">
+            <p>Program magang terstruktur untuk meningkatkan kompetensi siswa dalam dunia kerja profesional dan mempersiapkan mereka untuk karir masa depan.</p>
+            <div class="social-links">
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-column fade-in delay-1" data-scroll="fade-in">
+          <h3>Link Cepat</h3>
+          <ul class="footer-links">
+            <li><a href="https://magang.smkn3kendal.sch.id/login"><i class="fas fa-sign-in-alt"></i> Login Magang</a></li>
+            <li><a href="#"><i class="fas fa-calendar-alt"></i> Jadwal Magang</a></li>
+            <li><a href="#"><i class="fas fa-building"></i> Perusahaan Mitra</a></li>
+            <li><a href="#"><i class="fas fa-book"></i> Panduan Magang</a></li>
+          </ul>
+        </div>
+        <div class="footer-column fade-in delay-2" data-scroll="fade-right">
+          <h3>Kontak Kami</h3>
+          <ul class="footer-links">
+            <li><a href="mailto:magang@smkn3kendal.sch.id"><i class="fas fa-envelope"></i> magang@smkn3kendal.sch.id</a></li>
+            <li><a href="tel:+62241234567"><i class="fas fa-phone-alt"></i> (024) 1234567</a></li>
+            <li><a href="#"><i class="fas fa-map-marker-alt"></i> Jl. Soekarno-Hatta No. 123, Kendal</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom fade-in delay-3">
+        <p>&copy; 2024 Program Magang SMKN 3 Kendal. All rights reserved. | Dibuat dengan <i class="fas fa-heart" style="color: #ff6b6b;"></i> untuk pendidikan</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Navigation Setup
+    const hamburger = document.getElementById("hamburger");
+    const navLinks = document.getElementById("navLinks");
+    const navbar = document.getElementById("navbar");
+    const mobileMenuBackdrop = document.getElementById("mobileMenuBackdrop");
+
+    hamburger.addEventListener("click", () => {
+        navLinks.classList.toggle("active");
+        mobileMenuBackdrop.classList.toggle("active");
+        hamburger.innerHTML = navLinks.classList.contains("active")
+            ? '<i class="fas fa-times"></i>'
+            : '<i class="fas fa-bars"></i>';
+    });
+
+    mobileMenuBackdrop.addEventListener("click", () => {
+        navLinks.classList.remove("active");
+        mobileMenuBackdrop.classList.remove("active");
+        hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+    });
+
+    document.querySelectorAll(".nav-links a").forEach((link) => {
+        link.addEventListener("click", () => {
+            if (window.innerWidth <= 768) {
+                navLinks.classList.remove("active");
+                mobileMenuBackdrop.classList.remove("active");
+                hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        });
+    });
+
+    window.addEventListener("scroll", () => {
+        const currentScroll = window.scrollY;
+
+        if (currentScroll <= 10) {
+            navbar.classList.remove("scrolled");
+            navbar.style.boxShadow = "0 8px 32px rgba(13, 2, 29, 0.3)";
+        } else if (currentScroll > 50) {
+            navbar.classList.add("scrolled");
+            navbar.style.boxShadow = "0 5px 20px rgba(0, 0, 0, 0.3)";
+        }
+    });
+
+    window.addEventListener("resize", () => {
+        if (window.innerWidth > 768) {
+            navLinks.classList.remove("active");
+            mobileMenuBackdrop.classList.remove("active");
+            hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+        }
+    });
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+
+    // Back to Top Button
+    const backToTopBtn = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        backToTopBtn.classList.add('visible');
+      } else {
+        backToTopBtn.classList.remove('visible');
+      }
+    });
+    
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    // Scroll Reveal Animation
+    const scrollElements = document.querySelectorAll('[data-scroll]');
+    
+    const elementInView = (el) => {
+      const elementTop = el.getBoundingClientRect().top;
+      return (
+        elementTop <= (window.innerHeight || document.documentElement.clientHeight) * 0.75
+      );
+    };
+    
+    const displayScrollElement = (element) => {
+      element.classList.add('in-view');
+    };
+    
+    const handleScrollAnimation = () => {
+      scrollElements.forEach((el) => {
+        if (elementInView(el)) {
+          displayScrollElement(el);
+        }
+      });
+    };
+    
+    window.addEventListener('scroll', () => {
+      handleScrollAnimation();
+    });
+    
+    // Initialize scroll animation for elements already in view
+    handleScrollAnimation();
+  </script>
+</body>
 </html>
