@@ -43,7 +43,6 @@
       background: white;
       min-height: 100vh;
       padding-top: calc(var(--navbar-height) + 20px);
-      overflow-x: hidden;
     }
 
     h1, h2, h3 {
@@ -147,7 +146,7 @@
     }
 
     .nav-links a:hover {
-      color: var(--secondary);
+      color: var(--primary);
     }
 
     .hamburger {
@@ -189,12 +188,16 @@
       padding: 80px 0;
       text-align: center;
       position: relative;
-      overflow: hidden;
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .hero-content {
       position: relative;
       z-index: 1;
+      width: 100%;
     }
 
     .hero h1 {
@@ -237,6 +240,10 @@
       border: none;
       cursor: pointer;
       white-space: nowrap;
+      position: relative;
+      overflow: hidden;
+      transform: translateY(0);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
     .btn-primary {
@@ -246,7 +253,7 @@
     }
 
     .btn-primary:hover {
-      transform: translateY(-3px);
+      transform: translateY(-5px);
       box-shadow: 0 12px 25px rgba(108, 99, 255, 0.3);
     }
 
@@ -258,7 +265,8 @@
 
     .btn-outline:hover {
       background: rgba(108, 99, 255, 0.05);
-      transform: translateY(-3px);
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
     }
 
     .hero-stats {
@@ -301,6 +309,7 @@
     .section {
       padding: 80px 0;
       position: relative;
+      min-height: 50vh;
     }
 
     .section-title {
@@ -350,6 +359,31 @@
       background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
       color: var(--white);
       box-shadow: 0 8px 20px rgba(108, 99, 255, 0.2);
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      transform: translateY(0);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 25px rgba(108, 99, 255, 0.3);
+    }
+
+    .btn-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.2) 100%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .btn-card:hover::before {
+      opacity: 1;
     }
 
     .card-icon {
@@ -387,6 +421,7 @@
     /* Content Sections */
     .content-section {
       padding: 60px 0;
+      min-height: 50vh;
     }
 
     .content-container {
@@ -452,6 +487,9 @@
       margin-bottom: 24px;
       position: relative;
       padding-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
     .footer-column h3::after {
@@ -568,26 +606,108 @@
       animation: fadeIn 0.8s ease-out forwards;
     }
 
+    /* Scroll Animation Classes */
     [data-scroll] {
       opacity: 0;
-      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      transition: opacity 0.8s ease, transform 0.8s ease;
     }
 
-    [data-scroll="fade-in"] {
-      transform: translateY(20px);
-    }
-
-    [data-scroll="fade-left"] {
-      transform: translateX(-20px);
-    }
-
-    [data-scroll="fade-right"] {
-      transform: translateX(20px);
-    }
-
-    [data-scroll="in-view"] {
+    [data-scroll].is-visible {
       opacity: 1;
-      transform: translate(0);
+      transform: translate(0) scale(1);
+    }
+
+    [data-scroll="fade-in"].is-visible {
+      transform: translateY(0);
+    }
+
+    [data-scroll="fade-left"].is-visible {
+      transform: translateX(0);
+    }
+
+    [data-scroll="fade-right"].is-visible {
+      transform: translateX(0);
+    }
+
+    [data-scroll="fade-up"].is-visible {
+      transform: translateY(0);
+    }
+
+    [data-scroll="fade-down"].is-visible {
+      transform: translateY(0);
+    }
+
+    [data-scroll="zoom-in"].is-visible {
+      transform: scale(1);
+    }
+
+    [data-scroll="flip-up"].is-visible {
+      transform: perspective(1000px) rotateX(0) translateY(0);
+    }
+
+    /* Logo Styles */
+    .logo-container {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        padding: 2px 0;
+    }
+
+    .logo-img {
+        height: 24px;
+        width: auto;
+        max-width: 100px;
+        object-fit: contain;
+        transition: all 0.3s ease;
+    }
+
+    /* Footer logo styles */
+    .footer-logo {
+        height: 40px;
+        width: auto;
+        max-width: 100%;
+        object-fit: contain;
+        transition: all 0.3s ease;
+    }
+
+    @media (max-width: 768px) {
+        .footer-logo {
+            height: 30px;
+        }
+    }
+
+    /* Scrolled state */
+    .navbar.scrolled .logo-img {
+        height: 22px;
+    }
+
+    /* Responsive sizes */
+    @media (max-width: 992px) {
+        .logo-img {
+            height: 22px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .logo-img {
+            height: 20px;
+        }
+        
+        .navbar.scrolled .logo-img {
+            height: 20px;
+        }
+    }
+
+    /* Mobile adjustments */
+    @media (max-width: 576px) {
+        .logo-container {
+            margin-right: auto;
+        }
+        
+        .logo-img {
+            height: 20px;
+            max-width: 80px;
+        }
     }
 
     /* Responsive Breakpoints */
@@ -778,6 +898,10 @@
       .content-section h3 {
         font-size: 1.2rem;
       }
+
+      .footer-column h3 {
+        font-size: 1.1rem;
+      }
     }
 
     @media (max-width: 400px) {
@@ -797,57 +921,242 @@
         grid-template-columns: 1fr;
       }
     }
-    /* Logo Styles - Minimal Sizes */
-.logo-container {
-    display: flex;
-    align-items: center;
-    height: 100%;
-    padding: 2px 0; /* Ensure proper vertical alignment */
-}
 
-.logo-img {
-    height: 24px; /* Absolute minimum for desktop */
-    width: auto;
-    max-width: 100px; /* Prevents over-stretching */
-    object-fit: contain;
-    transition: all 0.3s ease;
-}
+    /* ==================== */
+    /* ENHANCED HOVER EFFECTS */
+    /* ==================== */
 
-/* Scrolled state */
-.navbar.scrolled .logo-img {
-    height: 22px;
-}
+    /* Enhanced Card Hover */
+    .card {
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
 
-/* Responsive sizes - don't go below 20px */
-@media (max-width: 992px) {
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      opacity: 0;
+      z-index: -1;
+      transition: opacity 0.4s ease;
+    }
+
+    .card:hover::before {
+      opacity: 0.05;
+    }
+
+    .card:hover .card-icon {
+      transform: scale(1.1);
+      color: var(--primary);
+    }
+
+    .card-icon {
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    /* Enhanced Button Hover */
+    .btn-primary {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 5px;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.5);
+      opacity: 0;
+      border-radius: 100%;
+      transform: scale(1, 1) translate(-50%, -50%);
+      transform-origin: 50% 50%;
+    }
+
+    .btn-primary:hover::after {
+      animation: ripple 1s ease-out;
+    }
+
+    @keyframes ripple {
+      0% {
+        transform: scale(0, 0);
+        opacity: 0.5;
+      }
+      100% {
+        transform: scale(20, 20);
+        opacity: 0;
+      }
+    }
+
+    /* Enhanced Nav Link Hover */
+    .nav-links a {
+      position: relative;
+    }
+
+    .nav-links a::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      opacity: 0;
+      z-index: -1;
+      border-radius: 4px;
+      transition: opacity 0.3s ease;
+    }
+
+    .nav-links a:hover::before {
+      opacity: 0.1;
+    }
+
+
+    /* Enhanced Highlight Box Hover */
+    .highlight-box {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .highlight-box:hover {
+      transform: translateX(5px);
+      box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Enhanced Logo Hover */
     .logo-img {
-        height: 22px;
+      transition: transform 0.3s ease;
     }
-}
 
-@media (max-width: 768px) {
-    .logo-img {
-        height: 20px; /* Minimum readable size */
+    .logo-img:hover {
+      transform: rotate(-5deg) scale(1.05);
     }
-    
-    .navbar.scrolled .logo-img {
-        height: 20px;
-    }
-}
 
-/* Mobile adjustments */
-@media (max-width: 576px) {
-    .logo-container {
-        margin-right: auto; /* Pushes hamburger to the right */
+    /* Enhanced Social Icon Hover */
+    .social-links a {
+      position: relative;
+      overflow: hidden;
     }
-    
-    .logo-img {
-        height: 20px; /* Don't go smaller than this */
-        max-width: 80px;
+
+    .social-links a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: 0.5s;
     }
-}
+
+    .social-links a:hover::before {
+      left: 100%;
+    }
+
+    /* Enhanced Hamburger Hover */
+    .hamburger {
+      position: relative;
+    }
+
+    .hamburger::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      opacity: 0;
+      z-index: -1;
+      transition: opacity 0.3s ease;
+    }
+
+    .hamburger:hover::before {
+      opacity: 0.1;
+    }
+
+    /* New Button Hover Effects */
+    .btn {
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.2) 100%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .btn:hover::before {
+      opacity: 1;
+    }
+
+    .btn-primary::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.05) 100%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .btn-primary:hover::after {
+      opacity: 1;
+    }
+
+    .btn-outline::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(0, 51, 153, 0.1) 0%, rgba(158, 181, 255, 0.1) 100%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .btn-outline:hover::after {
+      opacity: 1;
+    }
+
+    /* Button pulse effect */
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(0, 51, 153, 0.4);
+      }
+      70% {
+        box-shadow: 0 0 0 10px rgba(0, 51, 153, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(0, 51, 153, 0);
+      }
+    }
+
+    .btn-primary:hover {
+      animation: pulse 1.5s infinite;
+    }
   </style>
-  </head>
+</head>
 <body>
   <!-- Back to Top Button -->
   <button class="back-to-top" id="backToTop" aria-label="Kembali ke atas">
@@ -856,19 +1165,19 @@
 
   <!-- Navigation -->
   <nav class="navbar" id="navbar">
-<div class="logo-container">
-    <img src="./assets/logoss.png" alt="PKL Skanega Logo" class="logo-img">
-</div>
+    <div class="logo-container">
+      <img src="./assets/logoss.png" alt="PKL Skanega Logo" class="logo-img">
+    </div>
     <button class="hamburger" id="hamburger" aria-label="Menu navigasi">
       <i class="fas fa-bars"></i>
     </button>
-<div class="nav-links" id="navLinks">
-  <a href="#hero">Beranda</a>
-  <a href="#tentang-pkl">Tentang PKL</a>
-  <a href="#pelaksanaan">Pelaksanaan</a>
-  <a href="#angkatan">Angkatan</a>
-  <a href="#kontak">Kontak</a>
-</div>
+    <div class="nav-links" id="navLinks">
+      <a href="#hero">Beranda</a>
+      <a href="#latar-belakang">Tentang PKL</a>
+      <a href="#model-pkl">Pelaksanaan</a>
+      <a href="#angkatan">Angkatan</a>
+      <a href="#kontak">Kontak</a>
+    </div>
   </nav>
   <div class="mobile-menu-backdrop" id="mobileMenuBackdrop"></div>
 
@@ -876,27 +1185,27 @@
   <div class="container">
     <!-- Hero Section -->
     <section class="hero" id="hero">
-      <div class="hero-content fade-in" data-scroll="fade-in">
+      <div class="hero-content fade-in">
         <h1>Program PKL SMKN 3 Kendal</h1>
         <p>Mempersiapkan siswa untuk dunia profesional melalui pengalaman PKL berkualitas di perusahaan terkemuka.</p>
         <div class="hero-buttons">
-          <a href="#angkatan" class="btn btn-primary">
+          <a href="#angkatan" class="btn btn-primary" data-scroll="fade-left">
             <i class="fas fa-search"></i> Lihat Angkatan
           </a>
-          <a href="https://magang.smkn3kendal.sch.id/login" class="btn btn-outline">
+          <a href="https://magang.smkn3kendal.sch.id/login" class="btn btn-outline" data-scroll="fade-right">
             <i class="fas fa-sign-in-alt"></i> Login Siswa
           </a>
         </div>
         <div class="hero-stats">
-          <div class="stat-item fade-in delay-1" data-scroll="fade-in">
+          <div class="stat-item" data-scroll="fade-left">
             <div class="stat-number">500+</div>
             <div class="stat-label">Siswa PKL</div>
           </div>
-          <div class="stat-item fade-in delay-2" data-scroll="fade-in">
+          <div class="stat-item" data-scroll="fade-up">
             <div class="stat-number">50+</div>
             <div class="stat-label">Perusahaan Mitra</div>
           </div>
-          <div class="stat-item fade-in delay-3" data-scroll="fade-in">
+          <div class="stat-item" data-scroll="fade-right">
             <div class="stat-number">95%</div>
             <div class="stat-label">Kepuasan Siswa</div>
           </div>
@@ -907,21 +1216,21 @@
     <!-- Latar Belakang Section -->
     <section class="content-section" id="latar-belakang">
       <div class="content-container">
-        <h2 class="fade-in" data-scroll="fade-in">Latar Belakang</h2>
-        <div class="fade-in" data-scroll="fade-in">
+        <h2 data-scroll="fade-up">Latar Belakang</h2>
+        <div data-scroll="fade-up">
           <p>Pendidikan Menengah Kejuruan merupakan jenjang pendidikan yang mengutamakan pengembangan kemampuan peserta didik untuk dapat bekerja pada bidang tertentu, kemampuan beradaptasi dengan lingkungan kerja, melihat peluang kerja dan dapat mengembangkan diri di Era Globalisasi.</p>
           
           <p>SMK menyelenggarakan Pendidikan dan Pelatihan di berbagai Program Keahlian yang disesuaikan dengan lapangan kerja. Program Keahlian tersebut dikelompokkan menjadi bidang keahlian sesuai dengan kelompok bidang industri/bidang usaha/asosiasi profesi. Jenis bidang dan program keahlian ditetapkan oleh direktur Jenderal Pendidikan Dasar dan Menengah.</p>
           
           <p>Pendidikan di SMK dapat menerapkan berbagai pola penyelenggaraan pendidikan yang dapat dilaksanakan secara terpadu, seperti: Praktek Kerja Lapangan (PKL), dan pendidikan jarak jauh.</p>
           
-          <div class="highlight-box">
+          <div class="highlight-box" data-scroll="zoom-in">
             <p>PKL adalah pola penyelenggaraan pendidikan yang dikelola bersama-sama antara SMK dengan Dunia Usaha/Dunia Industri/Asosiasi Profesi, Pemerintah sebagai Institusi Pasangan (IP), mulai dari tahap Perencanaan, Pelaksanaan, hingga tahap Evaluasi dan Sertifikasi yang merupakan satu kesatuan program.</p>
           </div>
           
-          <p>Pola Praktik Kerja Lapangan diterapkan dalam proses penyelenggaraan SMK dalam rangka lebih mendekatkan mutu lulusan dengan kemampuan yang diminati oleh dunia usaha/Dunia Industri/Asosiasi Profesi (Pemerintah).</p>
+          <p data-scroll="fade-up">Pola Praktik Kerja Lapangan diterapkan dalam proses penyelenggaraan SMK dalam rangka lebih mendekatkan mutu lulusan dengan kemampuan yang diminati oleh dunia usaha/Dunia Industri/Asosiasi Profesi (Pemerintah).</p>
           
-          <p>Dengan demikian, seorang siswa dikatakan mampu mengembangkan kecakapan / keterampilan hidupnya jika menguasai dengan sungguh-sungguh seluk beluk keahliannya secara tuntas, mulai dari penguasaan aspek Technical Skill dan Soft Skill yang terkait, hingga aspek Personal Skill dan Social Skill yang diperlukan untuk mengaplikasikannya dalam kehidupan sehari-hari. Untuk itu perlu modul pembelajaran dalam bentuk unjuk kerja (Performance), melaksanakan pekerjaan yang sesungguhnya (Real Job) dan alami (Natural) melalui pendekatan pembelajaran Praktek Kerja Lapangan (PKL), yang pada akhirnya pada diri siswa SMK tumbuh keyakinan bahwa keahlian yang dikuasainya cukup bermakna (Meanningfull) untuk dijadikan sebagai pilihan jalan hidup.</p>
+          <p data-scroll="fade-up">Dengan demikian, seorang siswa dikatakan mampu mengembangkan kecakapan / keterampilan hidupnya jika menguasai dengan sungguh-sungguh seluk beluk keahliannya secara tuntas, mulai dari penguasaan aspek Technical Skill dan Soft Skill yang terkait, hingga aspek Personal Skill dan Social Skill yang diperlukan untuk mengaplikasikannya dalam kehidupan sehari-hari. Untuk itu perlu modul pembelajaran dalam bentuk unjuk kerja (Performance), melaksanakan pekerjaan yang sesungguhnya (Real Job) dan alami (Natural) melalui pendekatan pembelajaran Praktek Kerja Lapangan (PKL), yang pada akhirnya pada diri siswa SMK tumbuh keyakinan bahwa keahlian yang dikuasainya cukup bermakna (Meanningfull) untuk dijadikan sebagai pilihan jalan hidup.</p>
         </div>
       </div>
     </section>
@@ -929,11 +1238,11 @@
     <!-- Landasan Hukum Section -->
     <section class="content-section" id="landasan-hukum">
       <div class="content-container">
-        <h2 class="fade-in" data-scroll="fade-in">Landasan Hukum</h2>
-        <div class="fade-in" data-scroll="fade-in">
+        <h2 data-scroll="fade-up">Landasan Hukum</h2>
+        <div data-scroll="fade-up">
           <p>Praktek Kerja Lapangan bagi Peserta Didik bertujuan untuk meningkatkan kompetensi peserta didik sesuai dengan kebutuhan dunia kerja. Maka perlu pembelajaran di luar satuan pendidikan formal dan nonformal melalui praktik kerja lapangan. Penyelenggaraan praktik kerja lapangan (PKL) diatur dengan Permendikbud 50 tahun 2020 tentang Praktik Kerja Lapangan bagi Peserta Didik.</p>
           
-          <div class="highlight-box">
+          <div class="highlight-box" data-scroll="flip-up">
             <h3>Tujuan PKL dalam Permendikbud 50 tahun 2020:</h3>
             <ul>
               <li>Menumbuhkembangkan karakter dan budaya kerja yang profesional pada Peserta Didik</li>
@@ -948,13 +1257,13 @@
     <!-- Tujuan PKL Section -->
     <section class="content-section" id="tujuan-pkl">
       <div class="content-container">
-        <h2 class="fade-in" data-scroll="fade-in">Tujuan PKL</h2>
-        <div class="fade-in" data-scroll="fade-in">
+        <h2 data-scroll="fade-up">Tujuan PKL</h2>
+        <div data-scroll="fade-up">
           <ol>
-            <li>Penanaman iklim kerja positif yang berorientasi kualitas proses dan hasil kerja.</li>
-            <li>Penanaman etos kerja yang tinggi bagi peserta didik sebelum memasuki dunia kerja sebenarnya.</li>
-            <li>Memberikan tambahan ilmu dan keterampilan baru untuk kebutuhan standar kompetensi lulusan.</li>
-            <li>Aktualisasi salah satu aktivitas dalam penyelenggaraan Model Pendidikan Sistem Ganda (PSG) antara SMK dan Institusi Pasangan Du/Di secara sistematis dan sistemik.</li>
+            <li data-scroll="fade-left">Penanaman iklim kerja positif yang berorientasi kualitas proses dan hasil kerja.</li>
+            <li data-scroll="fade-left">Penanaman etos kerja yang tinggi bagi peserta didik sebelum memasuki dunia kerja sebenarnya.</li>
+            <li data-scroll="fade-left">Memberikan tambahan ilmu dan keterampilan baru untuk kebutuhan standar kompetensi lulusan.</li>
+            <li data-scroll="fade-left">Aktualisasi salah satu aktivitas dalam penyelenggaraan Model Pendidikan Sistem Ganda (PSG) antara SMK dan Institusi Pasangan Du/Di secara sistematis dan sistemik.</li>
           </ol>
         </div>
       </div>
@@ -963,32 +1272,32 @@
     <!-- Manfaat PKL Section -->
     <section class="content-section" id="manfaat-pkl">
       <div class="content-container">
-        <h2 class="fade-in" data-scroll="fade-in">Manfaat PKL</h2>
-        <div class="fade-in" data-scroll="fade-in">
-          <h3>1. Bagi Siswa</h3>
+        <h2 data-scroll="fade-up">Manfaat PKL</h2>
+        <div data-scroll="fade-up">
+          <h3 data-scroll="fade-left">1. Bagi Siswa</h3>
           <ul>
-            <li>Mengaplikasikan dan meningkatkan ilmu</li>
-            <li>Menambah wawasan mengenai dunia kerja yang berorientasi kualitas proses dan hasil</li>
-            <li>Menambah dan meningkatkan kompetensi</li>
-            <li>Memiliki kemampuan produktif sesuai dengan kompetensi keahlian yang dipelajari</li>
-            <li>Mengembangkan kemampuan sesuai dengan bimbingan/ arahan pembimbing industri dan dapat berkontribusi kepada dunia kerja</li>
+            <li data-scroll="fade-left">Mengaplikasikan dan meningkatkan ilmu</li>
+            <li data-scroll="fade-left">Menambah wawasan mengenai dunia kerja yang berorientasi kualitas proses dan hasil</li>
+            <li data-scroll="fade-left">Menambah dan meningkatkan kompetensi</li>
+            <li data-scroll="fade-left">Memiliki kemampuan produktif sesuai dengan kompetensi keahlian yang dipelajari</li>
+            <li data-scroll="fade-left">Mengembangkan kemampuan sesuai dengan bimbingan/ arahan pembimbing industri dan dapat berkontribusi kepada dunia kerja</li>
           </ul>
           
-          <h3>2. Bagi Sekolah</h3>
+          <h3 data-scroll="fade-right">2. Bagi Sekolah</h3>
           <ul>
-            <li>Menjalin hubungan kerja sama yang lebih erat dan saling menguntungkan</li>
-            <li>Menambah wawasan perbandingan ilmu dan keterampilan sesuai kebutuhan dunia kerja tempat PKL</li>
-            <li>Mendapatkan masukan (feed-back) dari dunia kerja (DK) untuk pengembangan sekolah dimasa yang akan datang</li>
-            <li>Memperoleh dukungan DK untuk meningkatkan relevansi dan efektivitas program sekolah melalui sinkronisasi kurikulum dan penyusunan KTSP, pelaksanaan pembelajaran, pengembangan teaching factory, serta pemenuhan sarana dan prasarana pembelajaran kejuruan</li>
-            <li>Merealisasikan program penguatan pendidikan karakter berbasis masyarakat industri secara terencana dan implementatif, khususnya nilai-nilai karakter budaya industri sebagai salah satu bentuk implementasi Permendikbud 50 tahun 2020 tentang Praktik Kerja Lapangan bagi Peserta Didik</li>
+            <li data-scroll="fade-right">Menjalin hubungan kerja sama yang lebih erat dan saling menguntungkan</li>
+            <li data-scroll="fade-right">Menambah wawasan perbandingan ilmu dan keterampilan sesuai kebutuhan dunia kerja tempat PKL</li>
+            <li data-scroll="fade-right">Mendapatkan masukan (feed-back) dari dunia kerja (DK) untuk pengembangan sekolah dimasa yang akan datang</li>
+            <li data-scroll="fade-right">Memperoleh dukungan DK untuk meningkatkan relevansi dan efektivitas program sekolah melalui sinkronisasi kurikulum dan penyusunan KTSP, pelaksanaan pembelajaran, pengembangan teaching factory, serta pemenuhan sarana dan prasarana pembelajaran kejuruan</li>
+            <li data-scroll="fade-right">Merealisasikan program penguatan pendidikan karakter berbasis masyarakat industri secara terencana dan implementatif, khususnya nilai-nilai karakter budaya industri sebagai salah satu bentuk implementasi Permendikbud 50 tahun 2020 tentang Praktik Kerja Lapangan bagi Peserta Didik</li>
           </ul>
           
-          <h3>3. Bagi IDUKA</h3>
+          <h3 data-scroll="fade-left">3. Bagi IDUKA</h3>
           <ul>
-            <li>Meningkatkan peranan Dunia Kerja dalam membina dan mengembangkan SMK/MAK sesuai Permendikbud 50 tahun 2020 tentang Praktik Kerja Lapangan bagi Peserta Didik</li>
-            <li>Untuk mendapatkan calon tenaga kerja yang berkualitas sesuai dengan kebutuhan</li>
-            <li>Sarana promosi profil, produk, tata kelola, dll. melalui masyarakat sekolah</li>
-            <li>Kesempatan mengembangkan proses dan produk melalui optimalisasi peran-serta peserta PKL</li>
+            <li data-scroll="fade-left">Meningkatkan peranan Dunia Kerja dalam membina dan mengembangkan SMK/MAK sesuai Permendikbud 50 tahun 2020 tentang Praktik Kerja Lapangan bagi Peserta Didik</li>
+            <li data-scroll="fade-left">Untuk mendapatkan calon tenaga kerja yang berkualitas sesuai dengan kebutuhan</li>
+            <li data-scroll="fade-left">Sarana promosi profil, produk, tata kelola, dll. melalui masyarakat sekolah</li>
+            <li data-scroll="fade-left">Kesempatan mengembangkan proses dan produk melalui optimalisasi peran-serta peserta PKL</li>
           </ul>
         </div>
       </div>
@@ -997,38 +1306,38 @@
     <!-- Model dan Pelaksanaan PKL Section -->
     <section class="content-section" id="model-pkl">
       <div class="content-container">
-        <h2 class="fade-in" data-scroll="fade-in">Model dan Pelaksanaan PKL</h2>
-        <div class="fade-in" data-scroll="fade-in">
-          <h3>1. Model PKL</h3>
+        <h2 data-scroll="fade-up">Model dan Pelaksanaan PKL</h2>
+        <div data-scroll="fade-up">
+          <h3 data-scroll="fade-right">1. Model PKL</h3>
           <ul>
-            <li><strong>Day Release</strong> adalah bentuk pelaksanaan kegiatan Praktik Kerja Lapangan bagi siswa yang dilakukan satu hari belajar di sekolah, satu hari berikutnya belajar di industri.</li>
-            <li><strong>Weak Release</strong> adalah bentuk pelaksanaan kegiatan Praktik Kerja Lapangan bagi siswa yang dilakukan secara mingguan belajar disekolah dan di industri.</li>
-            <li><strong>Block Release</strong> adalah bentuk pelaksanaan kegiatan Praktik Kerja Lapangan bagi siswa yang dilakukan secara penuh belajar di industri sesuai waktu yang disepakati bersama.</li>
+            <li data-scroll="fade-right"><strong>Day Release</strong> adalah bentuk pelaksanaan kegiatan Praktik Kerja Lapangan bagi siswa yang dilakukan satu hari belajar di sekolah, satu hari berikutnya belajar di industri.</li>
+            <li data-scroll="fade-right"><strong>Weak Release</strong> adalah bentuk pelaksanaan kegiatan Praktik Kerja Lapangan bagi siswa yang dilakukan secara mingguan belajar disekolah dan di industri.</li>
+            <li data-scroll="fade-right"><strong>Block Release</strong> adalah bentuk pelaksanaan kegiatan Praktik Kerja Lapangan bagi siswa yang dilakukan secara penuh belajar di industri sesuai waktu yang disepakati bersama.</li>
           </ul>
           
-          <h3>2. Waktu dan Pelaksanaan PKL</h3>
-          <p><strong>a. Waktu Pelaksanaan</strong></p>
-          <p>Memperhatikan Permendikbud 50 tahun 2020 tentang Praktik Kerja Lapangan bagi Peserta Didik, waktu pelaksanaan pembelajaran di Institusi Pasangan/Industri dapat dilakukan di kelas XII semester genap dengan rentang waktu minimal 16 (enam belas) minggu sampai 6 (enam) bulan.</p>
+          <h3 data-scroll="fade-left">2. Waktu dan Pelaksanaan PKL</h3>
+          <p data-scroll="fade-left"><strong>a. Waktu Pelaksanaan</strong></p>
+          <p data-scroll="fade-left">Memperhatikan Permendikbud 50 tahun 2020 tentang Praktik Kerja Lapangan bagi Peserta Didik, waktu pelaksanaan pembelajaran di Institusi Pasangan/Industri dapat dilakukan di kelas XII semester genap dengan rentang waktu minimal 16 (enam belas) minggu sampai 6 (enam) bulan.</p>
           
-          <p><strong>b. Peserta PKL</strong></p>
-          <p>Kegiatan PKL berdasarkan tuntutan kurikulum SMK diberikan bagi siswa:</p>
-          <p>Kelas XII Tahun Pelajaran 2024/2025 dengan model Block Release, karena telah dianggap cukup maksimal menguasai pengetahuan dan ketrampilan baik secara teori maupun praktik selama di sekolah.</p>
+          <p data-scroll="fade-right"><strong>b. Peserta PKL</strong></p>
+          <p data-scroll="fade-right">Kegiatan PKL berdasarkan tuntutan kurikulum SMK diberikan bagi siswa:</p>
+          <p data-scroll="fade-right">Kelas XII Tahun Pelajaran 2024/2025 dengan model Block Release, karena telah dianggap cukup maksimal menguasai pengetahuan dan ketrampilan baik secara teori maupun praktik selama di sekolah.</p>
           
-          <p><strong>c. Penempatan PKL</strong></p>
-          <p>Penempatan PKL di IDUKA dapat dilaksanakan sesuai dengan kesepakatan bersama antara pihak sekolah yang memohon dan pihak IDUKA yang menerima.</p>
-          <p>Apabila waktu yang tersedia di IDUKA belum mencapai target program sekolah, maka dapat dilakukan perpanjangan waktu PKL, atau mengusulkan di perusahaan lain.</p>
+          <p data-scroll="fade-left"><strong>c. Penempatan PKL</strong></p>
+          <p data-scroll="fade-left">Penempatan PKL di IDUKA dapat dilaksanakan sesuai dengan kesepakatan bersama antara pihak sekolah yang memohon dan pihak IDUKA yang menerima.</p>
+          <p data-scroll="fade-left">Apabila waktu yang tersedia di IDUKA belum mencapai target program sekolah, maka dapat dilakukan perpanjangan waktu PKL, atau mengusulkan di perusahaan lain.</p>
         </div>
       </div>
     </section>
 
     <!-- Angkatan Section -->
     <section class="section" id="angkatan">
-      <div class="section-title fade-in" data-scroll="fade-in">
+      <div class="section-title" data-scroll="fade-up">
         <h2>Pilih Angkatan PKL</h2>
         <p>Silakan pilih angkatan Anda untuk mengakses halaman login PKL</p>
       </div>
       <div class="card-grid">
-        <div class="card fade-in delay-1" data-scroll="fade-left">
+        <div class="card" data-scroll="fade-left">
           <div class="card-icon" style="font-size: 1.8rem; font-weight: 700;">2025</div>
           <h3>Angkatan 2025</h3>
           <p>Untuk siswa yang akan PKL tahun 2024/2025</p>
@@ -1036,7 +1345,7 @@
             <i class="fas fa-arrow-right"></i> Masuk
           </a>
         </div>
-        <div class="card fade-in delay-2" data-scroll="fade-in">
+        <div class="card" data-scroll="fade-up">
           <div class="card-icon" style="font-size: 1.8rem; font-weight: 700;">2024</div>
           <h3>Angkatan 2024</h3>
           <p>Untuk siswa yang PKL tahun 2023/2024</p>
@@ -1044,7 +1353,7 @@
             <i class="fas fa-arrow-right"></i> Masuk
           </a>
         </div>
-        <div class="card fade-in delay-3" data-scroll="fade-right">
+        <div class="card" data-scroll="fade-right">
           <div class="card-icon" style="font-size: 1.8rem; font-weight: 700;">2023</div>
           <h3>Angkatan 2023</h3>
           <p>Untuk siswa yang PKL tahun 2022/2023</p>
@@ -1057,26 +1366,26 @@
 
     <!-- Info Section -->
     <section class="section" id="tentang">
-      <div class="section-title fade-in" data-scroll="fade-in">
+      <div class="section-title" data-scroll="fade-up">
         <h2>Keunggulan Program PKL</h2>
         <p>Program PKL yang dirancang untuk mempersiapkan siswa memasuki dunia kerja</p>
       </div>
       <div class="card-grid">
-        <div class="card fade-in delay-1" data-scroll="fade-left">
+        <div class="card" data-scroll="fade-left">
           <div class="card-icon">
             <i class="fas fa-briefcase"></i>
           </div>
           <h3>Pengalaman Nyata</h3>
           <p>Siswa mendapatkan pengalaman kerja langsung di perusahaan mitra yang relevan dengan kompetensi keahliannya.</p>
         </div>
-        <div class="card fade-in delay-2" data-scroll="fade-in">
+        <div class="card" data-scroll="fade-up">
           <div class="card-icon">
             <i class="fas fa-chalkboard-teacher"></i>
           </div>
           <h3>Pembimbing Profesional</h3>
           <p>Didampingi oleh pembimbing dari sekolah dan industri yang berpengalaman di bidangnya.</p>
         </div>
-        <div class="card fade-in delay-3" data-scroll="fade-right">
+        <div class="card" data-scroll="fade-right">
           <div class="card-icon">
             <i class="fas fa-certificate"></i>
           </div>
@@ -1091,37 +1400,40 @@
   <footer id="kontak">
     <div class="container">
       <div class="footer-content">
-        <div class="footer-column fade-in" data-scroll="fade-left">
-          <h3>PKL SMKN 3 Kendal</h3>
+        <div class="footer-column" data-scroll="fade-left">
+          <h3>
+            <img src="./assets/logo smk.png" alt="PKL SMKN 3 Kendal Logo" class="footer-logo">
+            PKL SMKN 3 Kendal
+          </h3>
           <div class="footer-about">
             <p>Program PKL terstruktur untuk meningkatkan kompetensi siswa dalam dunia kerja profesional dan mempersiapkan mereka untuk karir masa depan.</p>
             <div class="social-links">
-              <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-              <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-              <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-              <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+              <a href="#" aria-label="Instagram" data-scroll="fade-up"><i class="fab fa-instagram"></i></a>
+              <a href="#" aria-label="Facebook" data-scroll="fade-up"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" aria-label="Twitter" data-scroll="fade-up"><i class="fab fa-twitter"></i></a>
+              <a href="#" aria-label="YouTube" data-scroll="fade-up"><i class="fab fa-youtube"></i></a>
             </div>
           </div>
         </div>
-        <div class="footer-column fade-in delay-1" data-scroll="fade-in">
+        <div class="footer-column" data-scroll="fade-up">
           <h3>Link Cepat</h3>
           <ul class="footer-links">
-            <li><a href="https://magang.smkn3kendal.sch.id/login"><i class="fas fa-sign-in-alt"></i> Login PKL</a></li>
-            <li><a href="#"><i class="fas fa-calendar-alt"></i> Jadwal PKL</a></li>
-            <li><a href="#"><i class="fas fa-building"></i> Perusahaan Mitra</a></li>
-            <li><a href="#"><i class="fas fa-book"></i> Panduan PKL</a></li>
+            <li><a href="https://magang.smkn3kendal.sch.id/login" data-scroll="fade-right"><i class="fas fa-sign-in-alt"></i> Login PKL</a></li>
+            <li><a href="#" data-scroll="fade-right"><i class="fas fa-calendar-alt"></i> Jadwal PKL</a></li>
+            <li><a href="#" data-scroll="fade-right"><i class="fas fa-building"></i> Perusahaan Mitra</a></li>
+            <li><a href="#" data-scroll="fade-right"><i class="fas fa-book"></i> Panduan PKL</a></li>
           </ul>
         </div>
-        <div class="footer-column fade-in delay-2" data-scroll="fade-right">
+        <div class="footer-column" data-scroll="fade-right">
           <h3>Kontak Kami</h3>
           <ul class="footer-links">
-            <li><a href="mailto:PKL@smkn3kendal.sch.id"><i class="fas fa-envelope"></i> PKL@smkn3kendal.sch.id</a></li>
-            <li><a href="tel:+62241234567"><i class="fas fa-phone-alt"></i> (024) 1234567</a></li>
-            <li><a href="https://maps.google.com" target="_blank"><i class="fas fa-map-marker-alt"></i> Jl. Soekarno-Hatta No. 123, Kendal</a></li>
+            <li><a href="mailto:PKL@smkn3kendal.sch.id" data-scroll="fade-left"><i class="fas fa-envelope"></i> PKL@smkn3kendal.sch.id</a></li>
+            <li><a href="tel:+62241234567" data-scroll="fade-left"><i class="fas fa-phone-alt"></i> (024) 1234567</a></li>
+            <li><a href="https://maps.google.com" target="_blank" data-scroll="fade-left"><i class="fas fa-map-marker-alt"></i> Jl. Soekarno-Hatta No. 123, Kendal</a></li>
           </ul>
         </div>
       </div>
-      <div class="footer-bottom fade-in delay-3">
+      <div class="footer-bottom" data-scroll="fade-up">
         <p>&copy; 2025 Program PKL SMKN 3 Kendal. All rights reserved.</p>
       </div>
     </div>
@@ -1227,7 +1539,7 @@
       });
     });
 
-    // Scroll Reveal Animation
+    // Scroll Animation
     const scrollElements = document.querySelectorAll('[data-scroll]');
     
     const elementInView = (el) => {
@@ -1238,7 +1550,7 @@
     };
     
     const displayScrollElement = (element) => {
-      element.classList.add('in-view');
+      element.classList.add('is-visible');
     };
     
     const handleScrollAnimation = () => {
@@ -1250,18 +1562,18 @@
     };
     
     // Initialize scroll animation
-    window.addEventListener('load', handleScrollAnimation);
-    window.addEventListener('scroll', handleScrollAnimation);
+    window.addEventListener('load', () => {
+      // Immediately show hero elements
+      document.querySelectorAll('#hero [data-scroll]').forEach(el => {
+        el.classList.add('is-visible');
+      });
+      
+      // Check other elements
+      handleScrollAnimation();
+    });
     
-    // Add delay classes for staggered animations
-    document.querySelectorAll('.delay-1').forEach(el => {
-      el.style.transitionDelay = '0.1s';
-    });
-    document.querySelectorAll('.delay-2').forEach(el => {
-      el.style.transitionDelay = '0.2s';
-    });
-    document.querySelectorAll('.delay-3').forEach(el => {
-      el.style.transitionDelay = '0.3s';
+    window.addEventListener('scroll', () => {
+      handleScrollAnimation();
     });
   </script>
 </body>
