@@ -145,7 +145,7 @@ h1, h2, h3 {
 /* Responsive sizes */
 @media (max-width: 992px) {
     .logo-img {
-        height: 22px;
+        height: 20px;
     }
 @media (max-width: 992px) {
     .logo-text {
@@ -156,11 +156,11 @@ h1, h2, h3 {
 
 @media (max-width: 768px) {
     .logo-img {
-        height: 20px;
+        height: 16px;
     }
     
     .navbar.scrolled .logo-img {
-        height: 20px;
+        height: px;
     }
     
     .logo-text {
