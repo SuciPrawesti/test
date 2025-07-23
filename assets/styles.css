@@ -86,21 +86,115 @@ h1, h2, h3 {
   box-shadow: rgba(13, 2, 29, 0.089) 0px 8px 8px;
 }
 
-.logo-text {
-  font-size: 1.2rem;
-  font-weight: 700;
-  letter-spacing: 1px;
-  font-family: "Poppins", sans-serif;
-  display: flex;
-  align-items: center;
-  gap: 5px;
+/* Logo Styles */
+.logo-container {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 2px 0;
+    gap: 8px;
 }
 
-.logo-text span:last-child {
-  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+.logo-img {
+    height: 20px;
+    width: auto;
+    max-width: 100px;
+    object-fit: contain;
+    transition: all 0.3s ease;
+}
+
+.logo-secondary {
+    margin-left: 5px;
+}
+
+.logo-text {
+    font-size: 1.4rem; 
+    font-weight: 700;
+    letter-spacing: 1px;
+    font-family: "Poppins", sans-serif;
+    color: var(--primary);
+    margin-left: 5px;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+}
+
+/* Footer logo styles */
+.footer-logo {
+    height: 40px;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+    transition: all 0.3s ease;
+}
+
+@media (max-width: 768px) {
+    .footer-logo {
+        height: 30px;
+    }
+}
+
+/* Scrolled state */
+.navbar.scrolled .logo-img {
+    height: 22px;
+}
+
+.navbar.scrolled .logo-text {
+    font-size: 1.1rem;
+}
+
+/* Responsive sizes */
+@media (max-width: 992px) {
+    .logo-img {
+        height: 22px;
+    }
+@media (max-width: 992px) {
+    .logo-text {
+        font-size: 1.3rem;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+    .logo-img {
+        height: 20px;
+    }
+    
+    .navbar.scrolled .logo-img {
+        height: 20px;
+    }
+    
+    .logo-text {
+        font-size: 1.2rem;
+    }
+    
+    .logo-container {
+        gap: 5px;
+    }
+    
+    .navbar.scrolled .logo-text {
+        font-size: 0.95rem;
+    }
+}
+
+/* Mobile adjustments */
+@media (max-width: 576px) {
+    .logo-container {
+        margin-right: auto;
+    }
+    
+    .logo-img {
+        height: 22px;
+        max-width: 80px;
+    }
+    
+    .logo-text {
+        font-size: 1.1rem;
+    }
+    
+    .logo-container {
+        gap: 3px;
+    }
 }
 
 .nav-links {
@@ -137,7 +231,6 @@ h1, h2, h3 {
 .nav-links a:hover {
   color: var(--primary);
 }
-
 
 .hamburger {
   display: none;
@@ -633,71 +726,6 @@ footer {
   transform: perspective(1000px) rotateX(0) translateY(0);
 }
 
-/* Logo Styles */
-.logo-container {
-    display: flex;
-    align-items: center;
-    height: 100%;
-    padding: 2px 0;
-}
-
-.logo-img {
-    height: 24px;
-    width: auto;
-    max-width: 100px;
-    object-fit: contain;
-    transition: all 0.3s ease;
-}
-
-/* Footer logo styles */
-.footer-logo {
-    height: 40px;
-    width: auto;
-    max-width: 100%;
-    object-fit: contain;
-    transition: all 0.3s ease;
-}
-
-@media (max-width: 768px) {
-    .footer-logo {
-        height: 30px;
-    }
-}
-
-/* Scrolled state */
-.navbar.scrolled .logo-img {
-    height: 22px;
-}
-
-/* Responsive sizes */
-@media (max-width: 992px) {
-    .logo-img {
-        height: 22px;
-    }
-}
-
-@media (max-width: 768px) {
-    .logo-img {
-        height: 20px;
-    }
-    
-    .navbar.scrolled .logo-img {
-        height: 20px;
-    }
-}
-
-/* Mobile adjustments */
-@media (max-width: 576px) {
-    .logo-container {
-        margin-right: auto;
-    }
-    
-    .logo-img {
-        height: 20px;
-        max-width: 80px;
-    }
-}
-
 /* Responsive Breakpoints */
 @media (max-width: 1200px) {
   .navbar {
@@ -725,10 +753,6 @@ footer {
     padding: 0 20px;
     top: 45px;
     height: 60px;
-  }
-
-  .logo-text {
-    font-size: 1rem;
   }
 
 .nav-links {
