@@ -183,7 +183,12 @@ h1, h2, h3 {
     }
     
     .logo-img {
-        height: 15px;
+        height: 17px;
+        max-width: 80px;
+    }
+
+        .logo-secondary {
+        height: 21px;
         max-width: 80px;
     }
     
