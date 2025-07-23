@@ -138,6 +138,7 @@ h1, h2, h3 {
   color: var(--primary);
 }
 
+
 .hamburger {
   display: none;
   cursor: pointer;
@@ -749,9 +750,8 @@ footer {
 
   clip-path: circle(0% at 100% 0%);
   -webkit-clip-path: circle(0% at 100% 0%);
-  transition: clip-path 0.7s ease-out;
+  transition: clip-path 1s ease-in-out;
 }
-
 
 .nav-links.active {
   clip-path: circle(150% at 100% 0%);
@@ -762,7 +762,6 @@ footer {
 .navbar.scrolled .nav-links.active {
   border-top-right-radius: 0 !important;
 }
-
 
 
   .nav-links a {
