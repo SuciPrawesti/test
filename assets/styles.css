@@ -376,7 +376,7 @@ h1, h2, h3 {
   border-radius: var(--border-radius);
   min-width: 160px;
   box-shadow: var(--card-shadow);
-  border: 1px solid #6b63ff88;
+  border: 1px solid #00339959;
   transition: var(--transition);
 }
 
@@ -434,7 +434,7 @@ h1, h2, h3 {
   padding: 40px 32px;
   box-shadow: var(--card-shadow);
   transition: var(--transition);
-  border: 1px solid #6b63ff88;
+  border: 1px solid #00339959;
   backdrop-filter: blur(5px);
   display: flex;
   flex-direction: column;
